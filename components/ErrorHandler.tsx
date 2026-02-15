@@ -29,7 +29,7 @@ interface ErrorHandlerProps {
 function ErrorCard({ error, onDismiss }: { error: StellarError; onDismiss?: () => void }) {
   const bgColors: Record<StellarErrorType, string> = {
     [StellarErrorType.WALLET_NOT_FOUND]: 'from-purple-500/10 to-purple-600/5 border-purple-500/20',
-    [StellarErrorType.USER_REJECTED]: 'from-yellow-500/10 to-amber-600/5 border-yellow-500/20',
+    [StellarErrorType.USER_REJECTED]: 'from-yellow-500/10 to-violet-600/5 border-yellow-500/20',
     [StellarErrorType.INSUFFICIENT_BALANCE]: 'from-red-500/10 to-red-600/5 border-red-500/20',
     [StellarErrorType.CONTRACT_ERROR]: 'from-blue-500/10 to-blue-600/5 border-blue-500/20',
     [StellarErrorType.NETWORK_ERROR]: 'from-gray-500/10 to-gray-600/5 border-gray-500/20',
@@ -58,8 +58,8 @@ function ErrorCard({ error, onDismiss }: { error: StellarError; onDismiss?: () =
               {error.message}
             </p>
             <div className="flex items-start gap-2 mt-3 p-2.5 bg-white/5 rounded-lg">
-              <FaLightbulb className="text-amber-400 text-sm flex-shrink-0 mt-0.5" />
-              <p className="text-amber-200/70 text-xs leading-relaxed">
+              <FaLightbulb className="text-violet-400 text-sm flex-shrink-0 mt-0.5" />
+              <p className="text-violet-200/70 text-xs leading-relaxed">
                 {error.suggestion}
               </p>
             </div>
@@ -110,8 +110,8 @@ export default function ErrorHandler({ error, onDismiss, showDemo = false }: Err
   return (
     <div className="glass rounded-2xl p-6 animate-fadeIn">
       <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-        <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30">
-          <FaShieldAlt className="text-amber-400 text-sm" />
+        <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30">
+          <FaShieldAlt className="text-violet-400 text-sm" />
         </span>
         Error Handling Demo
       </h3>
@@ -123,7 +123,7 @@ export default function ErrorHandler({ error, onDismiss, showDemo = false }: Err
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
           { type: StellarErrorType.WALLET_NOT_FOUND, label: 'Wallet Not Found', emoji: '🦊', color: 'from-purple-500/20 to-purple-600/10 border-purple-500/30 hover:border-purple-400/50' },
-          { type: StellarErrorType.USER_REJECTED, label: 'User Rejected', emoji: '✋', color: 'from-yellow-500/20 to-amber-600/10 border-yellow-500/30 hover:border-yellow-400/50' },
+          { type: StellarErrorType.USER_REJECTED, label: 'User Rejected', emoji: '✋', color: 'from-yellow-500/20 to-violet-600/10 border-yellow-500/30 hover:border-yellow-400/50' },
           { type: StellarErrorType.INSUFFICIENT_BALANCE, label: 'Low Balance', emoji: '💸', color: 'from-red-500/20 to-red-600/10 border-red-500/30 hover:border-red-400/50' },
         ].map((item) => (
           <button

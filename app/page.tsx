@@ -30,12 +30,12 @@ function TransactionLoadingOverlay({ isVisible }: { isVisible: boolean }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fadeIn">
-      <div className="glass rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl border border-amber-500/20">
+      <div className="glass rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl border border-violet-500/20">
         {/* Animated spinner */}
         <div className="relative w-16 h-16 mx-auto mb-5">
           <div className="absolute inset-0 rounded-full border-4 border-white/10"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-amber-400 animate-spin"></div>
-          <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-orange-400 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
+          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-violet-400 animate-spin"></div>
+          <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-purple-400 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
         </div>
         <h3 className="text-white font-bold text-lg mb-2">Processing Transaction</h3>
         <p className="text-white/50 text-sm">Please wait while your tip is being processed...</p>
@@ -45,7 +45,7 @@ function TransactionLoadingOverlay({ isVisible }: { isVisible: boolean }) {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+              className="w-2 h-2 rounded-full bg-violet-400 animate-pulse"
               style={{ animationDelay: `${i * 200}ms` }}
             ></div>
           ))}
@@ -61,7 +61,7 @@ function TopProgressBar({ isActive }: { isActive: boolean }) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 h-1">
-      <div className="h-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 animate-progress-bar"></div>
+      <div className="h-full bg-gradient-to-r from-violet-400 via-purple-400 to-violet-400 animate-progress-bar"></div>
     </div>
   );
 }
@@ -97,8 +97,8 @@ export default function Home() {
 
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-amber-500/[0.07] rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-orange-500/[0.05] rounded-full blur-[100px]"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-violet-500/[0.07] rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/[0.05] rounded-full blur-[100px]"></div>
       </div>
 
       {/* Header */}
@@ -106,12 +106,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-amber-500/20">
+              <div className="w-11 h-11 bg-gradient-to-br from-violet-400 to-purple-500 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-violet-500/20">
                 💰
               </div>
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  Stellar<span className="text-amber-400">Tip</span>
+                  Stellar<span className="text-violet-400">Tip</span>
                 </h1>
                 <p className="text-white/40 text-xs hidden sm:block">Instant tips on Stellar blockchain</p>
               </div>
@@ -151,13 +151,13 @@ export default function Home() {
         {!isConnected && (
           <div className="mb-10 animate-fadeIn">
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-1.5 mb-6">
-                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
-                <span className="text-amber-300 text-sm font-medium">Live on Stellar Testnet</span>
+              <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-1.5 mb-6">
+                <span className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></span>
+                <span className="text-violet-300 text-sm font-medium">Live on Stellar Testnet</span>
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
                 Send Tips,<br />
-                <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-violet-300 bg-clip-text text-transparent">
                   Instantly & Free
                 </span>
               </h2>
@@ -187,7 +187,7 @@ export default function Home() {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-2xl">{item.icon}</span>
-                    <span className="text-amber-500/50 text-xs font-bold uppercase tracking-widest">Step {item.step}</span>
+                    <span className="text-violet-500/50 text-xs font-bold uppercase tracking-widest">Step {item.step}</span>
                   </div>
                   <h3 className="text-white font-semibold mb-1.5">{item.title}</h3>
                   <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
@@ -253,7 +253,7 @@ export default function Home() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex-1 min-w-0 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20'
+                      ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20'
                       : 'text-white/50 hover:text-white/70 hover:bg-white/5'
                   }`}
                 >
@@ -303,13 +303,13 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <span className="text-lg">💰</span>
               <span className="text-white/40 text-sm font-medium">
-                Stellar<span className="text-amber-500/60">Tip</span>
+                Stellar<span className="text-violet-500/60">Tip</span>
               </span>
               <span className="text-white/20 text-xs ml-2">🥋 Green Belt</span>
             </div>
             <div className="text-center sm:text-right">
               <p className="text-white/30 text-sm">
-                Built with ❤️ for the <span className="text-amber-400/50">Rise In Stellar Journey</span>
+                Built with ❤️ for the <span className="text-violet-400/50">Rise In Stellar Journey</span>
               </p>
               <p className="text-white/20 text-xs mt-1">
                 ⚠️ Testnet only — do not use real funds

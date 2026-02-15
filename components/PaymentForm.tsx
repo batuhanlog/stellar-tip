@@ -102,8 +102,8 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
     <>
       <Card className="animate-fadeIn">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30">
-            <FaPaperPlane className="text-amber-400" />
+          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30">
+            <FaPaperPlane className="text-violet-400" />
           </span>
           Send a Tip
         </h2>
@@ -126,7 +126,7 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
                   href={stellar.getExplorerLink(txHash, 'tx')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-amber-400 hover:text-amber-300 text-sm transition-colors"
+                  className="text-violet-400 hover:text-violet-300 text-sm transition-colors"
                 >
                   View on Stellar Expert →
                 </a>
@@ -162,7 +162,7 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
                   onClick={() => setAmount(qa)}
                   className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                     amount === qa
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20'
+                      ? 'bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg shadow-violet-500/20'
                       : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white'
                   }`}
                 >
@@ -183,7 +183,7 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-amber-500/20"
+              className="w-full bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-violet-500/20"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -200,8 +200,8 @@ export default function PaymentForm({ publicKey, onSuccess }: PaymentFormProps) 
           </div>
         </form>
 
-        <div className="mt-4 p-3 bg-amber-500/5 border border-amber-500/15 rounded-xl">
-          <p className="text-amber-200/70 text-xs">
+        <div className="mt-4 p-3 bg-violet-500/5 border border-violet-500/15 rounded-xl">
+          <p className="text-violet-200/70 text-xs">
             ⚠️ <strong>Double-check</strong> the recipient address. Blockchain transactions are irreversible!
           </p>
         </div>

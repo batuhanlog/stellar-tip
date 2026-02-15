@@ -20,7 +20,7 @@ export function LoadingSpinner() {
 // Balance Card
 export function BalanceCard({ balance, label }: { balance: string; label: string }) {
   return (
-    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-6 shadow-lg">
+    <div className="bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl p-6 shadow-lg">
       <p className="text-white/80 text-sm mb-2">{label}</p>
       <p className="text-4xl font-bold text-white">{balance}</p>
     </div>
@@ -60,7 +60,7 @@ export function TransactionItem({
           href={explorerLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-400 hover:text-amber-300 text-sm"
+          className="text-violet-400 hover:text-violet-300 text-sm"
         >
           View →
         </a>
@@ -84,7 +84,7 @@ export function CopyButton({ text }: { text: string }) {
   };
 
   return (
-    <button onClick={handleCopy} className="text-amber-400 hover:text-amber-300 text-sm">
+    <button onClick={handleCopy} className="text-violet-400 hover:text-violet-300 text-sm">
       {copied ? '✓ Copied!' : '📋 Copy'}
     </button>
   );
@@ -103,7 +103,7 @@ export function Alert({
   const colors = {
     success: 'bg-green-500/90 border border-green-400/30',
     error: 'bg-red-500/90 border border-red-400/30',
-    info: 'bg-amber-500/90 border border-amber-400/30',
+    info: 'bg-violet-500/90 border border-violet-400/30',
   };
 
   return (
@@ -148,7 +148,7 @@ export function Input({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+        className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 transition-all"
       />
       {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
     </div>
@@ -170,7 +170,7 @@ export function Button({
   fullWidth?: boolean;
 }) {
   const variants = {
-    primary: 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 shadow-lg shadow-amber-500/20',
+    primary: 'bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 shadow-lg shadow-violet-500/20',
     secondary: 'bg-white/10 hover:bg-white/20 border border-white/20',
     danger: 'bg-red-600 hover:bg-red-700',
   };

@@ -156,17 +156,17 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
           <span
             className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full border transition-all ${
               isCached
-                ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                ? 'bg-violet-500/10 border-violet-500/30 text-violet-300'
                 : 'bg-green-500/10 border-green-500/30 text-green-300'
             }`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-amber-400' : 'bg-green-400 animate-pulse'}`}></span>
+            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-violet-400' : 'bg-green-400 animate-pulse'}`}></span>
             {isCached ? 'cached' : 'live'}
           </span>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
+            className="text-violet-400 hover:text-violet-300 disabled:opacity-50 transition-colors p-2 hover:bg-violet-500/10 rounded-lg"
             title="Refresh history (force)"
           >
             <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
@@ -196,7 +196,7 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                         outgoing
-                          ? 'bg-orange-500/15 text-orange-400 border border-orange-500/20'
+                          ? 'bg-purple-500/15 text-purple-400 border border-purple-500/20'
                           : 'bg-green-500/15 text-green-400 border border-green-500/20'
                       }`}
                     >
@@ -207,7 +207,7 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
                         {outgoing ? 'Tip Sent' : 'Tip Received'}
                       </p>
                       {tx.amount && (
-                        <p className={`text-lg font-bold ${outgoing ? 'text-orange-400' : 'text-green-400'}`}>
+                        <p className={`text-lg font-bold ${outgoing ? 'text-purple-400' : 'text-green-400'}`}>
                           {outgoing ? '-' : '+'}
                           {parseFloat(tx.amount).toFixed(2)} {tx.asset || 'XLM'}
                         </p>
@@ -219,7 +219,7 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
                     href={stellar.getExplorerLink(tx.hash, 'tx')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-amber-400/70 hover:text-amber-400 text-sm flex items-center gap-1 transition-colors"
+                    className="text-violet-400/70 hover:text-violet-400 text-sm flex items-center gap-1 transition-colors"
                   >
                     <FaExternalLinkAlt className="text-xs" />
                   </a>

@@ -35,7 +35,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30">
             📡
           </span>
           Transaction Status
@@ -63,7 +63,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
               key={step}
               className={`flex items-center gap-4 p-3 rounded-xl transition-all duration-500 ${
                 isCurrentStep
-                  ? 'bg-amber-500/10 border border-amber-500/30'
+                  ? 'bg-violet-500/10 border border-violet-500/30'
                   : isPastStep
                   ? 'bg-green-500/5 border border-green-500/10'
                   : 'bg-white/[0.02] border border-white/[0.04]'
@@ -74,7 +74,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
                 isPastStep
                   ? 'bg-green-500/20 text-green-400'
                   : isCurrentStep
-                  ? 'bg-amber-500/20 text-amber-400'
+                  ? 'bg-violet-500/20 text-violet-400'
                   : 'bg-white/5 text-white/20'
               }`}>
                 {isPastStep ? (
@@ -92,7 +92,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
                   isPastStep
                     ? 'text-green-400'
                     : isCurrentStep
-                    ? 'text-amber-300'
+                    ? 'text-violet-300'
                     : 'text-white/20'
                 }`}>
                   {info.label}
@@ -101,7 +101,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
                   isPastStep
                     ? 'text-green-400/60'
                     : isCurrentStep
-                    ? 'text-amber-200/60'
+                    ? 'text-violet-200/60'
                     : 'text-white/10'
                 }`}>
                   {isCurrentStep ? info.description : isPastStep ? 'Complete' : 'Waiting'}
@@ -114,8 +114,8 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
               )}
               {isCurrentStep && (
                 <span className="flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                  <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-violet-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-violet-500"></span>
                 </span>
               )}
             </div>
@@ -131,7 +131,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
               ? 'bg-gradient-to-r from-red-500 to-red-600'
               : isComplete
               ? 'bg-gradient-to-r from-green-400 to-emerald-500'
-              : 'bg-gradient-to-r from-amber-400 to-orange-500'
+              : 'bg-gradient-to-r from-violet-400 to-purple-500'
           }`}
           style={{
             width: isFailed ? '100%' : `${Math.max(((currentStepIndex + 1) / STATUS_STEPS.length) * 100, 10)}%`,
@@ -150,7 +150,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
               {onReset && (
                 <button
                   onClick={onReset}
-                  className="mt-3 text-sm text-amber-400 hover:text-amber-300 transition-colors"
+                  className="mt-3 text-sm text-violet-400 hover:text-violet-300 transition-colors"
                 >
                   ← Try Again
                 </button>
@@ -184,7 +184,7 @@ export default function TransactionStatus({ status, txHash, error, onReset }: Tr
                 href={`https://stellar.expert/explorer/testnet/tx/${txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-sm text-amber-400 hover:text-amber-300 transition-colors"
+                className="inline-flex items-center gap-1.5 mt-3 text-sm text-violet-400 hover:text-violet-300 transition-colors"
               >
                 View on Explorer <FaExternalLinkAlt className="text-xs" />
               </a>

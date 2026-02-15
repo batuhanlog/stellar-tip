@@ -55,8 +55,8 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
     return (
       <Card className="animate-fadeIn">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 mb-4">
-            <FaWallet className="text-3xl text-amber-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30 mb-4">
+            <FaWallet className="text-3xl text-violet-400" />
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Connect Your Wallet</h2>
           <p className="text-white/60 mb-6 max-w-md mx-auto">
@@ -67,7 +67,7 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
         <button
           onClick={handleConnect}
           disabled={loading}
-          className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 shadow-lg shadow-amber-500/20"
+          className="w-full bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 shadow-lg shadow-violet-500/20"
         >
           {loading ? (
             <>
@@ -82,9 +82,9 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
           )}
         </button>
 
-        <div className="mt-6 p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+        <div className="mt-6 p-4 bg-violet-500/5 border border-violet-500/20 rounded-xl">
           <p className="text-white/70 text-sm mb-3">
-            💡 <strong className="text-amber-300">Supported Wallets</strong>
+            💡 <strong className="text-violet-300">Supported Wallets</strong>
           </p>
           <div className="grid grid-cols-2 gap-2 text-xs text-white/50">
             <div>✓ Freighter</div>
@@ -124,7 +124,7 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
           </p>
           <button
             onClick={handleCopyAddress}
-            className="text-amber-400 hover:text-amber-300 text-xl flex-shrink-0 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
+            className="text-violet-400 hover:text-violet-300 text-xl flex-shrink-0 transition-colors p-2 hover:bg-violet-500/10 rounded-lg"
             title={copied ? 'Copied!' : 'Copy address'}
           >
             {copied ? <FaCheck className="text-green-400" /> : <FaCopy />}
@@ -137,7 +137,7 @@ export default function WalletConnection({ onConnect, onDisconnect }: WalletConn
           href={stellar.getExplorerLink(publicKey, 'account')}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-amber-400 hover:text-amber-300 text-sm transition-colors"
+          className="text-violet-400 hover:text-violet-300 text-sm transition-colors"
         >
           View on Explorer →
         </a>

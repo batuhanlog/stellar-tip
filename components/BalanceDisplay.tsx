@@ -113,7 +113,7 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
   return (
     <Card className="animate-fadeIn overflow-hidden relative">
       {/* Decorative background glow */}
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute -top-20 -right-20 w-40 h-40 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="flex items-center justify-between mb-6 relative z-10">
         <h2 className="text-2xl font-bold text-white flex items-center gap-3">
@@ -125,17 +125,17 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
           <span
             className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full border transition-all ${
               isCached
-                ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                ? 'bg-violet-500/10 border-violet-500/30 text-violet-300'
                 : 'bg-green-500/10 border-green-500/30 text-green-300'
             }`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-amber-400' : 'bg-green-400 animate-pulse'}`}></span>
+            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-violet-400' : 'bg-green-400 animate-pulse'}`}></span>
             {isCached ? 'cached' : 'live'}
           </span>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
+            className="text-violet-400 hover:text-violet-300 disabled:opacity-50 transition-colors p-2 hover:bg-violet-500/10 rounded-lg"
             title="Refresh balance (force)"
           >
             <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
@@ -144,13 +144,13 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
       </div>
 
       {/* Main XLM Balance */}
-      <div className="bg-gradient-to-br from-amber-500/15 to-orange-500/10 border border-amber-500/20 rounded-2xl p-6 mb-5 relative z-10">
-        <p className="text-amber-300/80 text-sm mb-2 uppercase tracking-wider font-medium">Available Balance</p>
+      <div className="bg-gradient-to-br from-violet-500/15 to-purple-500/10 border border-violet-500/20 rounded-2xl p-6 mb-5 relative z-10">
+        <p className="text-violet-300/80 text-sm mb-2 uppercase tracking-wider font-medium">Available Balance</p>
         <div className="flex items-baseline gap-2">
           <p className="text-5xl font-bold text-white tracking-tight">
             {formatBalance(balance)}
           </p>
-          <p className="text-2xl text-amber-400 font-semibold">XLM</p>
+          <p className="text-2xl text-violet-400 font-semibold">XLM</p>
         </div>
         <p className="text-white/30 text-sm mt-2">
           ≈ ${(parseFloat(balance) * 0.12).toFixed(2)} USD
@@ -164,8 +164,8 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
           <p className="text-white text-lg font-bold">—</p>
           <p className="text-white/30 text-xs">connect to track</p>
         </div>
-        <div className="bg-orange-500/10 border border-orange-500/20 rounded-xl p-4 text-center">
-          <p className="text-orange-400 text-xs uppercase tracking-wider mb-1">Tips Sent</p>
+        <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4 text-center">
+          <p className="text-purple-400 text-xs uppercase tracking-wider mb-1">Tips Sent</p>
           <p className="text-white text-lg font-bold">—</p>
           <p className="text-white/30 text-xs">connect to track</p>
         </div>
@@ -200,8 +200,8 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
       )}
 
       {/* Info */}
-      <div className="mt-5 p-3 bg-amber-500/5 border border-amber-500/15 rounded-xl relative z-10">
-        <p className="text-amber-200/70 text-xs">
+      <div className="mt-5 p-3 bg-violet-500/5 border border-violet-500/15 rounded-xl relative z-10">
+        <p className="text-violet-200/70 text-xs">
           💡 <strong>Tip:</strong> Keep at least 1 XLM for network reserves. Share your address to receive tips!
         </p>
       </div>

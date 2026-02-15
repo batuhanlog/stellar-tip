@@ -42,7 +42,7 @@ function EventItem({ event, isNew }: { event: ContractEvent; isNew: boolean }) {
     <div
       className={`p-3 sm:p-4 rounded-xl border transition-all duration-500 ${
         isNew
-          ? 'bg-amber-500/10 border-amber-500/30 animate-fadeIn'
+          ? 'bg-violet-500/10 border-violet-500/30 animate-fadeIn'
           : 'bg-white/[0.03] border-white/[0.06] hover:bg-white/[0.06]'
       }`}
     >
@@ -75,7 +75,7 @@ function ContractCard({ contract }: { contract: ContractMetadata }) {
           <span
             className={`inline-block text-xs font-bold px-1.5 py-0.5 rounded mt-0.5 ${
               contract.role === 'primary'
-                ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                ? 'bg-violet-500/10 text-violet-300 border border-violet-500/20'
                 : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20'
             }`}
           >
@@ -89,7 +89,7 @@ function ContractCard({ contract }: { contract: ContractMetadata }) {
         href={contract.explorerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block mt-2 text-amber-400/70 hover:text-amber-300 text-xs transition-colors"
+        className="inline-block mt-2 text-violet-400/70 hover:text-violet-300 text-xs transition-colors"
       >
         View on Explorer →
       </a>
@@ -218,7 +218,7 @@ export default function EventStream() {
             <button
               onClick={executeCall}
               disabled={isRunning}
-              className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-xs sm:text-sm rounded-xl hover:shadow-lg hover:shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 text-white font-bold text-xs sm:text-sm rounded-xl hover:shadow-lg hover:shadow-violet-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {isRunning ? (
                 <span className="flex items-center gap-2">
@@ -278,7 +278,7 @@ export default function EventStream() {
             <span className="text-4xl sm:text-5xl mb-4 block">📡</span>
             <p className="text-white/40 text-sm">No events yet</p>
             <p className="text-white/25 text-xs mt-1">
-              Click "Execute Call" to trigger inter-contract calls
+              Click &quot;Execute Call&quot; to trigger inter-contract calls
             </p>
           </div>
         ) : (

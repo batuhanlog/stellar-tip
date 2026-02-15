@@ -108,8 +108,8 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
       {/* Contract Info Card */}
       <Card className="animate-fadeIn">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30">
-            <FaFileContract className="text-amber-400" />
+          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 border border-violet-500/30">
+            <FaFileContract className="text-violet-400" />
           </span>
           Smart Contract
         </h2>
@@ -124,7 +124,7 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleCopyContractId}
-                    className="text-amber-400 hover:text-amber-300 transition-colors p-1.5 hover:bg-amber-500/10 rounded-lg"
+                    className="text-violet-400 hover:text-violet-300 transition-colors p-1.5 hover:bg-violet-500/10 rounded-lg"
                     title="Copy contract ID"
                   >
                     {copied ? <FaCheck className="text-green-400 text-sm" /> : <FaCopy className="text-sm" />}
@@ -133,7 +133,7 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
                     href={contractInfo.explorerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-amber-400 hover:text-amber-300 transition-colors p-1.5 hover:bg-amber-500/10 rounded-lg"
+                    className="text-violet-400 hover:text-violet-300 transition-colors p-1.5 hover:bg-violet-500/10 rounded-lg"
                     title="View on Explorer"
                   >
                     <FaExternalLinkAlt className="text-sm" />
@@ -150,7 +150,7 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
               <div className="bg-white/5 rounded-xl p-3 border border-white/10">
                 <p className="text-white/40 text-xs mb-1">Network</p>
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+                  <span className="w-2 h-2 bg-violet-400 rounded-full"></span>
                   <p className="text-white font-medium text-sm">{contractInfo.network}</p>
                 </div>
               </div>
@@ -181,14 +181,14 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
       {/* Contract Interaction */}
       <Card className="animate-fadeIn delay-100">
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <FaChartBar className="text-amber-400" />
+          <FaChartBar className="text-violet-400" />
           Contract Interaction
         </h3>
 
         {/* Tip Counter Display */}
-        <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 rounded-xl p-6 mb-5 text-center">
+        <div className="bg-gradient-to-br from-violet-500/10 to-purple-500/5 border border-violet-500/20 rounded-xl p-6 mb-5 text-center">
           <p className="text-white/50 text-sm mb-2">On-Chain Tip Counter</p>
-          <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400 mb-2">
+          <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400 mb-2">
             {counterValue}
           </div>
           <p className="text-white/30 text-xs">Total tips tracked by smart contract</p>
@@ -198,12 +198,12 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
         <div className="grid grid-cols-2 gap-3 mb-5">
           <div className="bg-white/5 rounded-xl p-4 border border-white/10 text-center">
             <p className="text-white/40 text-xs mb-1">Total Volume</p>
-            <p className="text-xl font-bold text-amber-400">{stats.totalVolume.toFixed(2)}</p>
+            <p className="text-xl font-bold text-violet-400">{stats.totalVolume.toFixed(2)}</p>
             <p className="text-white/30 text-xs">XLM</p>
           </div>
           <div className="bg-white/5 rounded-xl p-4 border border-white/10 text-center">
             <p className="text-white/40 text-xs mb-1">Tip Count</p>
-            <p className="text-xl font-bold text-amber-400">{stats.totalCount}</p>
+            <p className="text-xl font-bold text-violet-400">{stats.totalCount}</p>
             <p className="text-white/30 text-xs">transactions</p>
           </div>
         </div>
@@ -221,7 +221,7 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
           <button
             onClick={handleInvokeContract}
             disabled={!isConnected || txStatus !== 'idle'}
-            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-amber-500/20"
+            className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-violet-500/20"
           >
             <FaPlay />
             Increment
@@ -229,7 +229,7 @@ export default function ContractPanel({ publicKey, isConnected }: ContractPanelP
         </div>
 
         {!isConnected && (
-          <p className="text-amber-300/50 text-xs text-center mt-3">
+          <p className="text-violet-300/50 text-xs text-center mt-3">
             🔗 Connect your wallet to write to the contract
           </p>
         )}
