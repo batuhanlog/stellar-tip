@@ -49,20 +49,20 @@ html.light {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 html.light ::-webkit-scrollbar-track {
@@ -75,6 +75,60 @@ html.light ::-webkit-scrollbar-thumb {
 
 html.light ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for event stream */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+/* ─── Mobile Responsive (Green Belt) ──────────────────────────── */
+
+/* Ensure touch targets are at least 44px on mobile */
+@media (max-width: 640px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Reduce padding on small screens */
+  .glass {
+    padding: 0.75rem;
+  }
+
+  /* Prevent horizontal overflow */
+  pre, code {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Stack grids vertically on very small screens */
+  .mobile-stack {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Safe area insets for iOS */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Tap highlight color for mobile */
+* {
+  -webkit-tap-highlight-color: rgba(245, 158, 11, 0.15);
 }
 
 /* Animations */

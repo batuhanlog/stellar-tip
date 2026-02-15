@@ -4,10 +4,12 @@
  * A decentralized micropayment/tipping platform on Stellar testnet.
  * Yellow Belt: Soroban smart contract integration, error handling, tx status tracking.
  * Orange Belt: Loading states, caching, tests, complete documentation.
+ * Green Belt: Inter-contract calls, event streaming, CI/CD, mobile responsive.
  * 
  * All blockchain logic is in lib/stellar-helper.ts (DO NOT MODIFY)
  * Soroban contract logic is in lib/soroban-helper.ts
- * Caching logic is in lib/cache-helper.ts (NEW — Orange Belt)
+ * Inter-contract logic is in lib/inter-contract-helper.ts (NEW — Green Belt)
+ * Caching logic is in lib/cache-helper.ts
  */
 
 'use client';
@@ -19,6 +21,7 @@ import PaymentForm from '@/components/PaymentForm';
 import TransactionHistory from '@/components/TransactionHistory';
 import ContractPanel from '@/components/ContractPanel';
 import ErrorHandler from '@/components/ErrorHandler';
+import EventStream from '@/components/EventStream';
 import { ThemeToggle, TipLinkGenerator } from '@/components/BonusFeatures';
 
 // Global loading overlay for transaction processing
@@ -67,7 +70,7 @@ export default function Home() {
   const [publicKey, setPublicKey] = useState<string>('');
   const [isConnected, setIsConnected] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [activeTab, setActiveTab] = useState<'tips' | 'contract' | 'errors'>('tips');
+  const [activeTab, setActiveTab] = useState<'tips' | 'contract' | 'events' | 'errors'>('tips');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleConnect = (key: string) => {
@@ -115,10 +118,10 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Orange Belt Badge */}
-              <div className="hidden sm:flex items-center gap-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full px-3 py-1">
+              {/* Green Belt Badge */}
+              <div className="hidden sm:flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1">
                 <span className="text-sm">🥋</span>
-                <span className="text-orange-400 text-xs font-bold">Orange Belt</span>
+                <span className="text-green-400 text-xs font-bold">Green Belt</span>
               </div>
               <ThemeToggle />
               <a
@@ -238,23 +241,24 @@ export default function Home() {
             </div>
 
             {/* Tab Navigation */}
-            <div className="glass rounded-2xl p-2 flex gap-2">
+            <div className="glass rounded-2xl p-1.5 sm:p-2 flex gap-1 sm:gap-2 overflow-x-auto">
               {[
                 { id: 'tips' as const, label: '💸 Tips', desc: 'Send & History' },
                 { id: 'contract' as const, label: '📜 Contract', desc: 'Soroban' },
+                { id: 'events' as const, label: '🔗 Events', desc: 'Inter-Contract' },
                 { id: 'errors' as const, label: '🛡️ Errors', desc: 'Error Demo' },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all ${
+                  className={`flex-1 min-w-0 py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20'
                       : 'text-white/50 hover:text-white/70 hover:bg-white/5'
                   }`}
                 >
-                  <span className="block">{tab.label}</span>
-                  <span className={`block text-xs mt-0.5 ${
+                  <span className="block truncate">{tab.label}</span>
+                  <span className={`block text-[10px] sm:text-xs mt-0.5 truncate ${
                     activeTab === tab.id ? 'text-white/80' : 'text-white/30'
                   }`}>{tab.desc}</span>
                 </button>
@@ -277,6 +281,12 @@ export default function Home() {
               </div>
             )}
 
+            {activeTab === 'events' && (
+              <div className="animate-fadeIn">
+                <EventStream />
+              </div>
+            )}
+
             {activeTab === 'errors' && (
               <div className="animate-fadeIn">
                 <ErrorHandler showDemo={true} />
@@ -295,7 +305,7 @@ export default function Home() {
               <span className="text-white/40 text-sm font-medium">
                 Stellar<span className="text-amber-500/60">Tip</span>
               </span>
-              <span className="text-white/20 text-xs ml-2">🥋 Orange Belt</span>
+              <span className="text-white/20 text-xs ml-2">🥋 Green Belt</span>
             </div>
             <div className="text-center sm:text-right">
               <p className="text-white/30 text-sm">

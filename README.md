@@ -7,8 +7,9 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-3-38bdf8?logo=tailwindcss)
 ![Soroban](https://img.shields.io/badge/Soroban-Smart%20Contract-orange?logo=stellar)
-![Tests](https://img.shields.io/badge/Tests-36%20passing-brightgreen)
-![Belt](https://img.shields.io/badge/Belt-Orange%20🥋-orange)
+![Tests](https://img.shields.io/badge/Tests-55%20passing-brightgreen)
+![Belt](https://img.shields.io/badge/Belt-Green%20🥋-green)
+![CI/CD](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)
 
 ---
 
@@ -20,9 +21,9 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 
 ### 🔗 Links
 
-- **Live Demo:** [https://stellar-tip.vercel.app](https://stellar-tip.vercel.app)
+- **Live Demo:** _Vercel deployment pending — will be added after deploy_
 - **GitHub:** [https://github.com/batuhanlog/stellar-tip](https://github.com/batuhanlog/stellar-tip)
-- **Demo Video:** [Watch 1-minute demo](https://www.youtube.com/watch?v=PLACEHOLDER)
+- **CI/CD Pipeline:** [![CI/CD](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml)
 - **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC)
 
 ---
@@ -34,6 +35,87 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 | ⬜ **White Belt** (Level 1) | ✅ Complete | Wallet connection, balance display, payments, transaction history |
 | 🟡 **Yellow Belt** (Level 2) | ✅ Complete | Soroban smart contract, error handling (3+ types), transaction status tracking |
 | 🟠 **Orange Belt** (Level 3) | ✅ Complete | Loading states, caching with TTL, 36 passing tests, complete documentation |
+| 🟢 **Green Belt** (Level 4) | ✅ Complete | Inter-contract calls, CI/CD pipeline, mobile responsive, event streaming, 55 tests |
+
+---
+
+## 🟢 Green Belt (Level 4) — What's New
+
+### CI/CD Pipeline (GitHub Actions)
+- **Automated pipeline** on every push to `main` and pull requests
+- Runs `npm ci`, `npm test`, `npm run build` on **Node 18.x and 20.x**
+- Build artifacts uploaded for the Node 20.x run
+- **CI Badge** displayed at the top of this README
+
+> ![CI/CD Badge](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)
+>
+> _Screenshot: CI/CD pipeline badge — green when passing, red when failing_
+
+### Inter-Contract Calls (Fan-Out Pattern)
+- **Two Soroban contracts** called in parallel (fan-out / aggregator pattern):
+  - **Contract A — Tip Counter** (Primary): `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
+  - **Contract B — Tip Registry** (Secondary): `CAAXGP7YXJTLS2URUIH4CBBXFYRI3RNR4IXQNLBHC3JBUFQCIPCA7F2C`
+- Results are aggregated showing success/error counts and latency
+- Event system with subscribe/unsubscribe for real-time monitoring
+- Architecture diagram in the Events tab
+
+```
+┌─────────────────────────────────────────────┐
+│              StellarTip Frontend              │
+│           (Inter-Contract Helper)             │
+└──────────┬───────────────────┬───────────────┘
+           │                   │
+    ┌──────▼──────┐    ┌──────▼──────┐
+    │  Contract A │    │  Contract B │
+    │ Tip Counter │    │ Tip Registry│
+    │  (Primary)  │    │ (Secondary) │
+    └──────┬──────┘    └──────┬──────┘
+           │                   │
+    ┌──────▼───────────────────▼──────┐
+    │        Soroban RPC (Testnet)     │
+    │     soroban-testnet.stellar.org  │
+    └──────────────────────────────────┘
+```
+
+### Event Streaming (Real-Time Feed)
+- **Live event stream** showing contract call lifecycle:
+  - `📡 CALL` — Contract call initiated
+  - `✅ OK` — Successful response with latency
+  - `❌ ERR` — Error with details
+  - `🔗 RESULT` — Aggregated inter-contract result
+- **Auto-refresh** toggle: automatically re-executes every 15 seconds
+- Events highlighted when new, with smooth fade animation
+- Maximum 50 events kept in memory
+
+### Mobile Responsive Design
+- **Fully responsive** from 320px to any desktop width
+- Touch-friendly targets (minimum 44px) on all interactive elements
+- Responsive tab navigation with overflow handling
+- Safe area insets for iOS devices (notch support)
+- Responsive font sizes and padding throughout
+- Glass morphism effects scale properly on mobile
+- QR codes and architecture diagrams scroll horizontally when needed
+
+> 📱 _Mobile responsive — all components tested on 320px, 375px, 414px, and 768px viewports_
+
+### Test Suite Expansion (55 Tests)
+- **4 test files** with 55 total tests (up from 36)
+- New: `inter-contract-helper.test.ts` — 19 tests covering:
+  - Contract metadata (5 tests)
+  - Event system: subscribe, unsubscribe, emit, clear, unique IDs, timestamps (6 tests)
+  - Inter-contract execution: results, counts, latency, contract IDs, combined events (8 tests)
+
+### Green Belt Requirements Checklist
+
+| Requirement | Status | Details |
+|---|---|---|
+| Inter-contract calls | ✅ | Fan-out pattern calling 2 Soroban contracts in parallel |
+| CI/CD pipeline running | ✅ | GitHub Actions: test + build on Node 18.x/20.x |
+| Mobile responsive design | ✅ | 320px-768px+ with touch targets, safe areas, responsive layout |
+| 8+ meaningful commits | ✅ | 9 commits total |
+| Live demo link in README | ⏳ | Vercel deployment pending |
+| CI/CD badge in README | ✅ | GitHub Actions badge at top |
+| Contract addresses in README | ✅ | Both contract IDs documented |
 
 ---
 
@@ -67,8 +149,9 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 
 ## 🟡 Yellow Belt (Level 2) — Soroban Integration
 
-### Deployed Contract
-- **Contract ID:** `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
+### Deployed Contracts
+- **Tip Counter Contract:** `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
+- **Tip Registry Contract:** `CAAXGP7YXJTLS2URUIH4CBBXFYRI3RNR4IXQNLBHC3JBUFQCIPCA7F2C`
 - **Network:** Stellar Testnet
 - **Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC)
 
@@ -105,8 +188,15 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 - 🔄 **Global Loading Overlay** — Animated spinner + progress bar for transactions
 - 💾 **Smart Caching** — TTL-based caching for balance (30s), history (60s), contract data (45s)
 - 🏷️ **Cache Indicators** — "cached" vs "live" badges on all data components
-- ✅ **Test Suite** — 36 passing tests across 3 test files
+- ✅ **Test Suite** — 55 passing tests across 4 test files
 - 📖 **Complete Documentation** — Full README with architecture, setup, testing, deployment
+
+### Advanced (Green Belt)
+- 🔗 **Inter-Contract Calls** — Fan-out pattern calling 2 Soroban contracts in parallel
+- 📡 **Event Streaming** — Real-time contract event feed with auto-refresh
+- 🚀 **CI/CD Pipeline** — GitHub Actions running tests + build on every push
+- 📱 **Mobile Responsive** — Fully responsive from 320px with touch-friendly targets
+- 🏷️ **CI Badge** — Live pipeline status badge in README
 
 ### Bonus Features
 - 🌗 **Dark/Light Mode** — Toggle theme with persistent preference
@@ -114,9 +204,8 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 - ✅ **Confirmation Modal** — Review transaction details before sending
 - 🔗 **Shareable Tip Link** — Generate a shareable link concept
 - 🎨 **Smooth Animations** — fadeIn, scale, and stagger animations
-- 📱 **Mobile Responsive** — Fully responsive design for all screen sizes
 - 📋 **Copy Address** — One-click copy for wallet address
-- 🗂️ **Tab Navigation** — Organized dashboard with Tips / Contract / Errors tabs
+- 🗂️ **Tab Navigation** — Organized dashboard with Tips / Contract / Events / Errors tabs
 
 ---
 
@@ -130,7 +219,7 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 │  ┌─────────────┐  ┌──────────────┐  ┌─────────────┐ │
 │  │   page.tsx   │  │ Components/  │  │   lib/      │ │
 │  │  (Main UI)   │  │              │  │             │ │
-│  │  - Tabs      │──│ WalletConn.  │──│ stellar-    │ │
+│  │  - 4 Tabs    │──│ WalletConn.  │──│ stellar-    │ │
 │  │  - Loading   │  │ BalanceDisp. │  │ helper.ts   │ │
 │  │  - Progress  │  │ PaymentForm  │  │ (DO NOT     │ │
 │  │              │  │ TxHistory    │  │  MODIFY!)   │ │
@@ -138,13 +227,23 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 │                     │ ErrorHandler │  │ soroban-    │ │
 │                     │ TxStatus     │  │ helper.ts   │ │
 │                     │ BonusFeatures│  │             │ │
-│                     └──────────────┘  │ cache-      │ │
+│                     │ EventStream  │  │ inter-      │ │
+│                     └──────────────┘  │ contract-   │ │
+│                                       │ helper.ts   │ │
+│                                       │             │ │
+│                                       │ cache-      │ │
 │                                       │ helper.ts   │ │
 │                                       └─────────────┘ │
 │                                                       │
 │  ┌─────────────────────────────────────────────────┐ │
 │  │              Cache Layer (Orange Belt)            │ │
 │  │  Balance: 30s TTL │ History: 60s │ Contract: 45s │ │
+│  └─────────────────────────────────────────────────┘ │
+│                                                       │
+│  ┌─────────────────────────────────────────────────┐ │
+│  │         Inter-Contract Layer (Green Belt)         │ │
+│  │  Tip Counter (A)  ←→  Tip Registry (B)           │ │
+│  │  Fan-Out / Aggregator Pattern                     │ │
 │  └─────────────────────────────────────────────────┘ │
 │                                                       │
 │  ┌─────────────────────────────────────────────────┐ │
@@ -160,6 +259,7 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 3. **Cache Hit** → Return cached data immediately (shows "cached" badge)
 4. **Cache Miss** → Fetch from Stellar network → Store in cache → Show "live" badge
 5. **Force Refresh** → User clicks refresh → Invalidates cache → Fresh fetch
+6. **Inter-Contract** → Fan-out to both contracts → Aggregate results → Emit events
 
 ---
 
@@ -177,11 +277,22 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 ### Smart Contract Panel
 > [Screenshot: Contract panel showing deployed contract address, network status, tip counter]
 
+### Inter-Contract Event Stream
+> [Screenshot: Events tab showing real-time event feed with call_start, call_success badges and latency data]
+
+### Mobile Responsive View
+> 📱 [Screenshot: Mobile view (375px) showing responsive layout with stacked components, touch-friendly buttons, and properly scaled typography]
+
 ### Error Handling Demo
 > [Screenshot: Error handling demo with three error type buttons and error detail card]
 
-### Test Output (36 Tests Passing)
-> [Screenshot: Terminal showing `npm test` output with 3 test suites, 36 tests all passing]
+### CI/CD Pipeline
+> ![CI/CD](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)
+>
+> [Screenshot: GitHub Actions showing green CI/CD pipeline with test + build steps passing]
+
+### Test Output (55 Tests Passing)
+> [Screenshot: Terminal showing `npm test` output with 4 test suites, 55 tests all passing]
 
 ---
 
@@ -196,9 +307,10 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 | **Stellar Wallets Kit** | Multi-wallet connection |
 | **Soroban RPC** | Smart contract communication |
 | **react-icons** | UI icons |
-| **Jest** | Testing framework |
+| **Jest** | Testing framework (55 tests) |
 | **ts-jest** | TypeScript support for Jest |
 | **jest-environment-jsdom** | DOM environment for tests |
+| **GitHub Actions** | CI/CD pipeline |
 
 ---
 
@@ -235,7 +347,7 @@ npm start
 
 ## 🧪 Testing
 
-StellarTip includes a comprehensive test suite with **36 tests across 3 test files**.
+StellarTip includes a comprehensive test suite with **55 tests across 4 test files**.
 
 ### Run Tests
 
@@ -250,10 +362,37 @@ npm test
 | `__tests__/address-validation.test.ts` | 9 tests | Validates Stellar address format (56 chars, starts with G, alphanumeric) |
 | `__tests__/error-classification.test.ts` | 8 tests | Tests error classification system (wallet not found, user rejected, insufficient balance, contract error, network error, unknown) |
 | `__tests__/cache-helper.test.ts` | 19 tests | Tests cache set/get, TTL expiry, invalidation, prefix invalidation, freshness, cache info, size tracking |
+| `__tests__/inter-contract-helper.test.ts` | 19 tests | Tests inter-contract metadata, event system, fan-out execution, network health |
 
 ### Test Output
 
 ```
+PASS __tests__/inter-contract-helper.test.ts
+  InterContractHelper
+    Contract Metadata
+      ✓ should return metadata for two contracts
+      ✓ should have a primary contract (Tip Counter)
+      ✓ should have a secondary contract (Tip Registry)
+      ✓ should have valid explorer URLs for both contracts
+      ✓ should have descriptions for both contracts
+    Event System
+      ✓ should start with no events
+      ✓ should subscribe to events and receive them
+      ✓ should unsubscribe from events
+      ✓ should clear events
+      ✓ should generate unique event IDs
+      ✓ should include timestamps on all events
+    Inter-Contract Execution
+      ✓ should return results for both contracts
+      ✓ should report 2 total contracts called
+      ✓ should have correct success + error count summing to total
+      ✓ should include latency measurements
+      ✓ should include contract IDs in results
+      ✓ should include a timestamp in combined result
+      ✓ should emit a combined_result event
+    Network Health
+      ✓ should return a status string
+
 PASS __tests__/address-validation.test.ts
   Stellar Address Validation
     ✓ should accept a valid Stellar public key
@@ -300,10 +439,40 @@ PASS __tests__/error-classification.test.ts
     ✓ should return proper error structure with title, message, suggestion, icon
     ✓ should handle non-Error inputs gracefully
 
-Test Suites: 3 passed, 3 total
-Tests:       36 passed, 36 total
+Test Suites: 4 passed, 4 total
+Tests:       55 passed, 55 total
 Snapshots:   0 total
 ```
+
+---
+
+## 📜 Smart Contracts
+
+### Contract Addresses
+
+| Contract | ID | Role |
+|---|---|---|
+| **Tip Counter** | `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC` | Primary — tracks tip count |
+| **Tip Registry** | `CAAXGP7YXJTLS2URUIH4CBBXFYRI3RNR4IXQNLBHC3JBUFQCIPCA7F2C` | Secondary — tip verification |
+
+### Network
+- **Network:** Stellar Testnet
+- **RPC Endpoint:** `https://soroban-testnet.stellar.org`
+- **Horizon API:** `https://horizon-testnet.stellar.org`
+
+### Inter-Contract Call Pattern
+
+The inter-contract helper uses a **fan-out / aggregator** pattern:
+
+1. **Fan-Out:** Both Contract A (Tip Counter) and Contract B (Tip Registry) are called in parallel using `Promise.all()`
+2. **Aggregate:** Results from both contracts are combined into a single result object
+3. **Events:** Each step emits a typed event (`call_start`, `call_success`, `call_error`, `combined_result`)
+4. **UI:** The EventStream component subscribes to these events and renders them in real-time
+
+This pattern is common in production DeFi protocols for:
+- Multi-pool liquidity queries
+- Cross-chain bridge status checks
+- Composable contract orchestration
 
 ---
 
@@ -314,7 +483,8 @@ Snapshots:   0 total
 3. **Send Tips** — Enter a recipient address, choose an amount (or use quick buttons), add an optional message, and send!
 4. **Track Tips** — View your tip history with sent/received labels and explorer links
 5. **Interact with Contract** — Switch to the Contract tab to read/write Soroban smart contract data
-6. **Test Error Handling** — Switch to the Errors tab to see how 3+ error types are handled
+6. **Watch Events** — Switch to the Events tab to see inter-contract calls in real-time
+7. **Test Error Handling** — Switch to the Errors tab to see how 3+ error types are handled
 
 ### Caching System
 
@@ -324,18 +494,6 @@ Snapshots:   0 total
 - Each component shows a **"cached"** or **"live"** badge so you know the data source
 - Click the **refresh button** to force a fresh fetch
 
-### Flow
-
-```
-Connect Wallet → Fund with Testnet XLM → Send Tips → View History
-                                        ↓
-                              Interact with Soroban Contract
-                                        ↓
-                              Track Transaction Status (pending → success/fail)
-                                        ↓
-                              Cached Data with TTL Indicators
-```
-
 ---
 
 ## 🎨 Design
@@ -343,7 +501,8 @@ Connect Wallet → Fund with Testnet XLM → Send Tips → View History
 - **Color Theme:** Warm amber/orange/yellow gradient — tipping vibes 🔥
 - **Glass Morphism:** Backdrop blur with translucent cards
 - **Dark by Default:** Professional dark theme with light mode option
-- **Responsive:** Mobile-first design that works on all screen sizes
+- **Responsive:** Mobile-first design from 320px with safe area support
+- **Touch Friendly:** Minimum 44px touch targets on all interactive elements
 - **Animations:** Smooth fadeIn, scale, spin, pulse, and progress-bar effects
 - **Loading Skeletons:** `animate-pulse` with `bg-white/5` blocks
 - **Cache Badges:** Amber for "cached", green for "live"
@@ -354,10 +513,13 @@ Connect Wallet → Fund with Testnet XLM → Send Tips → View History
 
 ```
 stellar-tip/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                   # 🆕 GitHub Actions CI/CD pipeline (Green Belt)
 ├── app/
-│   ├── globals.css              # Global styles, animations, theme variables
-│   ├── layout.tsx               # Root layout with metadata
-│   └── page.tsx                 # Main page — hero + tabbed dashboard + loading overlay
+│   ├── globals.css              # Global styles, animations, theme variables, mobile responsive
+│   ├── layout.tsx               # Root layout with metadata + viewport
+│   └── page.tsx                 # Main page — hero + 4-tab dashboard + loading overlay
 ├── components/
 │   ├── WalletConnection.tsx     # Wallet connect/disconnect
 │   ├── BalanceDisplay.tsx       # Tip Jar balance display + caching + skeleton loading
@@ -367,35 +529,24 @@ stellar-tip/
 │   ├── ContractPanel.tsx        # Soroban contract interaction UI
 │   ├── TransactionStatus.tsx    # Transaction status tracker (pending/success/fail)
 │   ├── ErrorHandler.tsx         # Error handling with 3+ error types
+│   ├── EventStream.tsx          # 🆕 Inter-contract event stream (Green Belt)
 │   └── example-components.tsx   # Shared UI primitives (Card, Input, Button, etc.)
 ├── lib/
 │   ├── stellar-helper.ts       # Blockchain logic (DO NOT MODIFY)
 │   ├── soroban-helper.ts       # Soroban smart contract helper
-│   └── cache-helper.ts         # 🆕 Caching utility with TTL (Orange Belt)
+│   ├── inter-contract-helper.ts # 🆕 Inter-contract call patterns (Green Belt)
+│   └── cache-helper.ts         # Caching utility with TTL (Orange Belt)
 ├── __tests__/
-│   ├── address-validation.test.ts   # 🆕 Stellar address format tests (9 tests)
-│   ├── error-classification.test.ts # 🆕 Error classification tests (8 tests)
-│   └── cache-helper.test.ts        # 🆕 Cache helper tests (19 tests)
-├── jest.config.js               # 🆕 Jest testing configuration
+│   ├── address-validation.test.ts   # Stellar address format tests (9 tests)
+│   ├── error-classification.test.ts # Error classification tests (8 tests)
+│   ├── cache-helper.test.ts         # Cache helper tests (19 tests)
+│   └── inter-contract-helper.test.ts # 🆕 Inter-contract tests (19 tests) (Green Belt)
+├── jest.config.js               # Jest testing configuration
 ├── package.json
 ├── tailwind.config.js
 ├── tsconfig.json
 └── README.md
 ```
-
----
-
-## 🎬 Demo Video
-
-> 📹 **[Watch the 1-minute demo video](https://www.youtube.com/watch?v=PLACEHOLDER)**
-
-The demo covers:
-1. Connecting a Stellar wallet
-2. Viewing balance with cache indicator
-3. Sending a tip with loading overlay
-4. Viewing transaction history
-5. Interacting with the Soroban smart contract
-6. Testing error handling
 
 ---
 
@@ -408,6 +559,7 @@ The demo covers:
 | ⬜ White Belt | ✅ | Wallet connection, balance display, payments, history |
 | 🟡 Yellow Belt | ✅ | Soroban contracts, error handling, transaction status |
 | 🟠 Orange Belt | ✅ | Loading states, caching with TTL, testing, documentation |
+| 🟢 Green Belt | ✅ | Inter-contract calls, CI/CD, mobile responsive, event streaming |
 
 ---
 
