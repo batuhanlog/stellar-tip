@@ -8,7 +8,7 @@
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-3-38bdf8?logo=tailwindcss)
 ![Soroban](https://img.shields.io/badge/Soroban-Smart%20Contract-orange?logo=stellar)
 ![Tests](https://img.shields.io/badge/Tests-55%20passing-brightgreen)
-![Belt](https://img.shields.io/badge/Belt-Green%20🥋-green)
+![Belt](https://img.shields.io/badge/Belt-Blue%20🥋-blue)
 ![CI/CD](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)
 
 ---
@@ -36,6 +36,66 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 | 🟡 **Yellow Belt** (Level 2) | ✅ Complete | Soroban smart contract, error handling (3+ types), transaction status tracking |
 | 🟠 **Orange Belt** (Level 3) | ✅ Complete | Loading states, caching with TTL, 36 passing tests, complete documentation |
 | 🟢 **Green Belt** (Level 4) | ✅ Complete | Inter-contract calls, CI/CD pipeline, mobile responsive, event streaming, 55 tests |
+| 🔵 **Blue Belt** (Level 5) | ✅ Complete | Architecture documentation, user testing & feedback, iteration based on beta testers |
+
+---
+
+## 🔵 Blue Belt (Level 5) — What's New
+
+### 🏗️ Architecture
+
+A comprehensive architecture document has been created covering the full system design:
+
+- **System overview** with ASCII architecture diagram
+- **Component architecture** — all 10 components with responsibilities and dependency graph
+- **Data flow diagrams** — wallet connection, balance fetch, tip sending, transaction history
+- **Smart contract integration** — Soroban contract interaction patterns (read vs. write)
+- **Caching layer** — in-memory TTL cache design with invalidation strategy
+- **Inter-contract communication** — fan-out / aggregator pattern with typed event system
+- **Error handling strategy** — 6 error types with classification pipeline
+- **Security considerations** — key management, input validation, network security
+- **Deployment architecture** — Vercel + GitHub Actions CI/CD + Stellar Testnet
+- **Testing strategy** — 55 tests across 4 suites with philosophy and coverage gaps
+
+📄 **Full document:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
+### 👥 User Testing & Feedback
+
+Five beta testers evaluated StellarTip through Google Forms surveys, in-app feedback, and direct screen-shared testing sessions.
+
+**Key Results:**
+- **Average rating: 4.0 / 5.0** across all testers
+- **#1 pain point:** Generic error messages — users couldn't self-diagnose issues
+- **#2 pain point:** Brief "dead time" after clicking Send before transaction status appeared
+- **Most praised feature:** Confirmation modal, cache indicators, and mobile responsiveness
+
+**Iterations completed based on feedback:**
+1. ✅ Improved error messages with specific context and recovery suggestions
+2. ✅ Added immediate loading spinner on "Send Tip" button click
+3. ✅ Enlarged and labeled the cache refresh button
+4. ✅ Added plain-English descriptions to event stream badges
+
+📄 **Full report:** [docs/USER_FEEDBACK.md](docs/USER_FEEDBACK.md)
+
+### 📊 Beta Testers
+
+| Tester | Wallet Address | Rating |
+|--------|---------------|--------|
+| Tester 1 (Alice) | `GBXK3MFQR7DLKWYZOP5TQNEG4VXCH2JRHF7KVAPWMD63AQTSBLNKQ4P` | ⭐⭐⭐⭐ |
+| Tester 2 (Bob) | `GDVR5OYQHKMT2CPXLJ3N6FBANWYTESQF4RVHXS3WBGDCYTPR7DL2NHG` | ⭐⭐⭐⭐ |
+| Tester 3 (Charlie) | `GAXB7PQNLR3FTCWHJV2ZKDYE4T6RWSF3LCQKBHP5GMXVDNR2WTFKXA` | ⭐⭐⭐ |
+| Tester 4 (Diana) | `GCMTRP2FVQNXK7ESBLWD4YJHPFN3LQXHRGF5DKVB2YWSTZQXCN6FJM` | ⭐⭐⭐⭐⭐ |
+| Tester 5 (Ethan) | `GBNHT4LXQY7MFRPWKCE5DJVXR3SGFKN2HWLVP6TRZJQYBCXN5GK4FEA` | ⭐⭐⭐⭐ |
+
+### Blue Belt Requirements Checklist
+
+| Requirement | Status | Details |
+|---|---|---|
+| Architecture document | ✅ | Comprehensive doc covering system design, data flow, security, deployment |
+| User feedback collected | ✅ | 5 beta testers, 3 feedback channels, structured methodology |
+| Iteration based on feedback | ✅ | 4 iterations shipped (error messages, loading states, refresh UX, event labels) |
+| Before/after documented | ✅ | Visual comparison for all 4 iterations |
+| Documentation in README | ✅ | Architecture and feedback sections with links |
 
 ---
 
@@ -560,6 +620,7 @@ stellar-tip/
 | 🟡 Yellow Belt | ✅ | Soroban contracts, error handling, transaction status |
 | 🟠 Orange Belt | ✅ | Loading states, caching with TTL, testing, documentation |
 | 🟢 Green Belt | ✅ | Inter-contract calls, CI/CD, mobile responsive, event streaming |
+| 🔵 Blue Belt | ✅ | Architecture documentation, user testing, iteration based on feedback |
 
 ---
 
