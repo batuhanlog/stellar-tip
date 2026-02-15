@@ -21,7 +21,7 @@ StellarTip is a decentralized micropayment platform that lets you **send and rec
 
 ### 🔗 Links
 
-- **Live Demo:** _Vercel deployment pending — will be added after deploy_
+- **Live Demo:** [https://stellar-tip.vercel.app](https://stellar-tip.vercel.app)
 - **GitHub:** [https://github.com/batuhanlog/stellar-tip](https://github.com/batuhanlog/stellar-tip)
 - **CI/CD Pipeline:** [![CI/CD](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml/badge.svg)](https://github.com/batuhanlog/stellar-tip/actions/workflows/ci.yml)
 - **Contract Explorer:** [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC)
