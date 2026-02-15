@@ -2,7 +2,10 @@
  * StellarTip — Main Page
  * 
  * A decentralized micropayment/tipping platform on Stellar testnet.
+ * Yellow Belt: Soroban smart contract integration, error handling, tx status tracking.
+ * 
  * All blockchain logic is in lib/stellar-helper.ts (DO NOT MODIFY)
+ * Soroban contract logic is in lib/soroban-helper.ts (NEW)
  */
 
 'use client';
@@ -12,12 +15,15 @@ import WalletConnection from '@/components/WalletConnection';
 import BalanceDisplay from '@/components/BalanceDisplay';
 import PaymentForm from '@/components/PaymentForm';
 import TransactionHistory from '@/components/TransactionHistory';
+import ContractPanel from '@/components/ContractPanel';
+import ErrorHandler from '@/components/ErrorHandler';
 import { ThemeToggle, TipLinkGenerator } from '@/components/BonusFeatures';
 
 export default function Home() {
   const [publicKey, setPublicKey] = useState<string>('');
   const [isConnected, setIsConnected] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [activeTab, setActiveTab] = useState<'tips' | 'contract' | 'errors'>('tips');
 
   const handleConnect = (key: string) => {
     setPublicKey(key);
@@ -58,6 +64,11 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
+              {/* Yellow Belt Badge */}
+              <div className="hidden sm:flex items-center gap-1.5 bg-yellow-500/10 border border-yellow-500/30 rounded-full px-3 py-1">
+                <span className="text-sm">🥋</span>
+                <span className="text-yellow-400 text-xs font-bold">Yellow Belt</span>
+              </div>
               <ThemeToggle />
               <a
                 href="https://stellar.org"
@@ -68,7 +79,7 @@ export default function Home() {
                 About Stellar
               </a>
               <a
-                href="https://github.com/mrkayahan66/stellar-tip"
+                href="https://github.com/batuhanlog/stellar-tip"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden sm:block text-white/40 hover:text-white/70 text-sm transition-colors"
@@ -135,7 +146,7 @@ export default function Home() {
               {[
                 { icon: '⚡', title: 'Lightning Fast', desc: 'Transactions settle in 3-5 seconds on the Stellar network.' },
                 { icon: '🪙', title: 'Near-Zero Fees', desc: 'Transaction fees are just 0.00001 XLM — practically free.' },
-                { icon: '🔒', title: 'Secure & Trustless', desc: 'Built on blockchain technology with wallet encryption.' },
+                { icon: '📜', title: 'Smart Contracts', desc: 'On-chain tip tracking with Soroban smart contracts.' },
               ].map((item, i) => (
                 <div
                   key={item.title}
@@ -147,6 +158,16 @@ export default function Home() {
                   <p className="text-white/40 text-sm">{item.desc}</p>
                 </div>
               ))}
+            </div>
+
+            {/* Error Handling Demo (visible without wallet) */}
+            <div className="mt-10">
+              <ErrorHandler showDemo={true} />
+            </div>
+
+            {/* Contract Info Preview */}
+            <div className="mt-6">
+              <ContractPanel isConnected={false} />
             </div>
           </div>
         )}
@@ -165,13 +186,51 @@ export default function Home() {
               <BalanceDisplay publicKey={publicKey} />
             </div>
 
-            {/* Two Column: Tip Form + History */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              <PaymentForm publicKey={publicKey} onSuccess={handlePaymentSuccess} />
-              <div key={`history-${refreshKey}`}>
-                <TransactionHistory publicKey={publicKey} />
-              </div>
+            {/* Tab Navigation */}
+            <div className="glass rounded-2xl p-2 flex gap-2">
+              {[
+                { id: 'tips' as const, label: '💸 Tips', desc: 'Send & History' },
+                { id: 'contract' as const, label: '📜 Contract', desc: 'Soroban' },
+                { id: 'errors' as const, label: '🛡️ Errors', desc: 'Error Demo' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/20'
+                      : 'text-white/50 hover:text-white/70 hover:bg-white/5'
+                  }`}
+                >
+                  <span className="block">{tab.label}</span>
+                  <span className={`block text-xs mt-0.5 ${
+                    activeTab === tab.id ? 'text-white/80' : 'text-white/30'
+                  }`}>{tab.desc}</span>
+                </button>
+              ))}
             </div>
+
+            {/* Tab Content */}
+            {activeTab === 'tips' && (
+              <div className="grid lg:grid-cols-2 gap-6 animate-fadeIn">
+                <PaymentForm publicKey={publicKey} onSuccess={handlePaymentSuccess} />
+                <div key={`history-${refreshKey}`}>
+                  <TransactionHistory publicKey={publicKey} />
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'contract' && (
+              <div className="animate-fadeIn">
+                <ContractPanel publicKey={publicKey} isConnected={true} />
+              </div>
+            )}
+
+            {activeTab === 'errors' && (
+              <div className="animate-fadeIn">
+                <ErrorHandler showDemo={true} />
+              </div>
+            )}
           </div>
         )}
       </main>
@@ -185,6 +244,7 @@ export default function Home() {
               <span className="text-white/40 text-sm font-medium">
                 Stellar<span className="text-amber-500/60">Tip</span>
               </span>
+              <span className="text-white/20 text-xs ml-2">🥋 Yellow Belt</span>
             </div>
             <div className="text-center sm:text-right">
               <p className="text-white/30 text-sm">
