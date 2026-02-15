@@ -2,12 +2,14 @@
  * TransactionHistory Component — StellarTip
  * 
  * Shows "Tip History" with sent/received labels and explorer links.
+ * Orange Belt: Added caching with TTL and "cached"/"live" indicator.
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { stellar } from '@/lib/stellar-helper';
+import { cache, CACHE_TTL, CACHE_KEYS } from '@/lib/cache-helper';
 import { FaSync, FaArrowUp, FaArrowDown, FaExternalLinkAlt } from 'react-icons/fa';
 import { Card, EmptyState } from './example-components';
 
@@ -30,26 +32,51 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [isCached, setIsCached] = useState(false);
   const [limit] = useState(10);
 
-  const fetchTransactions = async () => {
+  const cacheKey = CACHE_KEYS.transactions(publicKey);
+
+  const fetchTransactions = useCallback(async (forceRefresh = false) => {
     try {
       setRefreshing(true);
+
+      // Check cache first (unless force refresh)
+      if (!forceRefresh) {
+        const cached = cache.get<Transaction[]>(cacheKey);
+        if (cached) {
+          setTransactions(cached);
+          setIsCached(true);
+          setLoading(false);
+          setRefreshing(false);
+          return;
+        }
+      }
+
       const txs = await stellar.getRecentTransactions(publicKey, limit);
       setTransactions(txs);
+      setIsCached(false);
+
+      // Store in cache
+      cache.set<Transaction[]>(cacheKey, txs, CACHE_TTL.TRANSACTIONS);
     } catch (error) {
       console.error('Error fetching transactions:', error);
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
-  };
+  }, [publicKey, cacheKey, limit]);
 
   useEffect(() => {
     if (publicKey) {
       fetchTransactions();
     }
-  }, [publicKey]);
+  }, [publicKey, fetchTransactions]);
+
+  const handleRefresh = () => {
+    cache.invalidate(cacheKey);
+    fetchTransactions(true);
+  };
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
@@ -80,17 +107,36 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
     return tx.from === publicKey;
   };
 
+  // Loading skeleton
   if (loading) {
     return (
       <Card className="animate-fadeIn">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-          <span className="text-2xl">📜</span>
-          Tip History
-        </h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+            <span className="text-2xl">📜</span>
+            Tip History
+          </h2>
+          <div className="w-8 h-8 bg-white/5 rounded-lg animate-pulse"></div>
+        </div>
         <div className="space-y-3">
-          {[1, 2, 3].map((i) => (
+          {[1, 2, 3, 4].map((i) => (
             <div key={i} className="animate-pulse">
-              <div className="h-24 bg-white/5 rounded-xl"></div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/5 rounded-xl"></div>
+                    <div>
+                      <div className="h-4 bg-white/5 rounded w-20 mb-2"></div>
+                      <div className="h-6 bg-white/5 rounded w-28"></div>
+                    </div>
+                  </div>
+                  <div className="w-4 h-4 bg-white/5 rounded"></div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="h-10 bg-white/5 rounded"></div>
+                  <div className="h-10 bg-white/5 rounded"></div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -105,14 +151,27 @@ export default function TransactionHistory({ publicKey }: TransactionHistoryProp
           <span className="text-2xl">📜</span>
           Tip History
         </h2>
-        <button
-          onClick={fetchTransactions}
-          disabled={refreshing}
-          className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
-          title="Refresh history"
-        >
-          <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Cache indicator */}
+          <span
+            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full border transition-all ${
+              isCached
+                ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                : 'bg-green-500/10 border-green-500/30 text-green-300'
+            }`}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-amber-400' : 'bg-green-400 animate-pulse'}`}></span>
+            {isCached ? 'cached' : 'live'}
+          </span>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
+            title="Refresh history (force)"
+          >
+            <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
 
       {transactions.length === 0 ? (

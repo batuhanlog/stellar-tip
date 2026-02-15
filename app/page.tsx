@@ -3,14 +3,16 @@
  * 
  * A decentralized micropayment/tipping platform on Stellar testnet.
  * Yellow Belt: Soroban smart contract integration, error handling, tx status tracking.
+ * Orange Belt: Loading states, caching, tests, complete documentation.
  * 
  * All blockchain logic is in lib/stellar-helper.ts (DO NOT MODIFY)
- * Soroban contract logic is in lib/soroban-helper.ts (NEW)
+ * Soroban contract logic is in lib/soroban-helper.ts
+ * Caching logic is in lib/cache-helper.ts (NEW — Orange Belt)
  */
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WalletConnection from '@/components/WalletConnection';
 import BalanceDisplay from '@/components/BalanceDisplay';
 import PaymentForm from '@/components/PaymentForm';
@@ -19,11 +21,54 @@ import ContractPanel from '@/components/ContractPanel';
 import ErrorHandler from '@/components/ErrorHandler';
 import { ThemeToggle, TipLinkGenerator } from '@/components/BonusFeatures';
 
+// Global loading overlay for transaction processing
+function TransactionLoadingOverlay({ isVisible }: { isVisible: boolean }) {
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fadeIn">
+      <div className="glass rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl border border-amber-500/20">
+        {/* Animated spinner */}
+        <div className="relative w-16 h-16 mx-auto mb-5">
+          <div className="absolute inset-0 rounded-full border-4 border-white/10"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-amber-400 animate-spin"></div>
+          <div className="absolute inset-2 rounded-full border-4 border-transparent border-t-orange-400 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '0.8s' }}></div>
+        </div>
+        <h3 className="text-white font-bold text-lg mb-2">Processing Transaction</h3>
+        <p className="text-white/50 text-sm">Please wait while your tip is being processed...</p>
+
+        {/* Progress dots */}
+        <div className="flex items-center justify-center gap-1.5 mt-4">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"
+              style={{ animationDelay: `${i * 200}ms` }}
+            ></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Progress bar that shows at the top of the page
+function TopProgressBar({ isActive }: { isActive: boolean }) {
+  if (!isActive) return null;
+
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50 h-1">
+      <div className="h-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 animate-progress-bar"></div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [publicKey, setPublicKey] = useState<string>('');
   const [isConnected, setIsConnected] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [activeTab, setActiveTab] = useState<'tips' | 'contract' | 'errors'>('tips');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleConnect = (key: string) => {
     setPublicKey(key);
@@ -41,6 +86,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-warm-gradient">
+      {/* Top progress bar */}
+      <TopProgressBar isActive={isProcessing} />
+
+      {/* Transaction loading overlay */}
+      <TransactionLoadingOverlay isVisible={isProcessing} />
+
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-amber-500/[0.07] rounded-full blur-[120px]"></div>
@@ -64,10 +115,10 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Yellow Belt Badge */}
-              <div className="hidden sm:flex items-center gap-1.5 bg-yellow-500/10 border border-yellow-500/30 rounded-full px-3 py-1">
+              {/* Orange Belt Badge */}
+              <div className="hidden sm:flex items-center gap-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full px-3 py-1">
                 <span className="text-sm">🥋</span>
-                <span className="text-yellow-400 text-xs font-bold">Yellow Belt</span>
+                <span className="text-orange-400 text-xs font-bold">Orange Belt</span>
               </div>
               <ThemeToggle />
               <a
@@ -244,7 +295,7 @@ export default function Home() {
               <span className="text-white/40 text-sm font-medium">
                 Stellar<span className="text-amber-500/60">Tip</span>
               </span>
-              <span className="text-white/20 text-xs ml-2">🥋 Yellow Belt</span>
+              <span className="text-white/20 text-xs ml-2">🥋 Orange Belt</span>
             </div>
             <div className="text-center sm:text-right">
               <p className="text-white/30 text-sm">
@@ -257,6 +308,18 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* CSS for progress bar animation */}
+      <style jsx>{`
+        @keyframes progress-bar {
+          0% { width: 0%; margin-left: 0%; }
+          50% { width: 70%; margin-left: 15%; }
+          100% { width: 0%; margin-left: 100%; }
+        }
+        .animate-progress-bar {
+          animation: progress-bar 2s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

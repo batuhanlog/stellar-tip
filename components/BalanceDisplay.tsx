@@ -2,12 +2,14 @@
  * BalanceDisplay Component — StellarTip
  * 
  * Displays the user's XLM balance as a "Tip Jar" with visual flair.
+ * Orange Belt: Added caching with TTL and "cached"/"live" indicator.
  */
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { stellar } from '@/lib/stellar-helper';
+import { cache, CACHE_TTL, CACHE_KEYS } from '@/lib/cache-helper';
 import { FaSync } from 'react-icons/fa';
 import { Card } from './example-components';
 import { AddressQRCode } from './BonusFeatures';
@@ -16,31 +18,62 @@ interface BalanceDisplayProps {
   publicKey: string;
 }
 
+interface BalanceData {
+  xlm: string;
+  assets: Array<{ code: string; issuer: string; balance: string }>;
+}
+
 export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
   const [balance, setBalance] = useState<string>('0');
   const [assets, setAssets] = useState<Array<{ code: string; issuer: string; balance: string }>>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [isCached, setIsCached] = useState(false);
 
-  const fetchBalance = async () => {
+  const cacheKey = CACHE_KEYS.balance(publicKey);
+
+  const fetchBalance = useCallback(async (forceRefresh = false) => {
     try {
       setRefreshing(true);
+
+      // Check cache first (unless force refresh)
+      if (!forceRefresh) {
+        const cached = cache.get<BalanceData>(cacheKey);
+        if (cached) {
+          setBalance(cached.xlm);
+          setAssets(cached.assets);
+          setIsCached(true);
+          setLoading(false);
+          setRefreshing(false);
+          return;
+        }
+      }
+
       const balanceData = await stellar.getBalance(publicKey);
       setBalance(balanceData.xlm);
       setAssets(balanceData.assets);
+      setIsCached(false);
+
+      // Store in cache
+      cache.set<BalanceData>(cacheKey, balanceData, CACHE_TTL.BALANCE);
     } catch (error) {
       console.error('Error fetching balance:', error);
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
-  };
+  }, [publicKey, cacheKey]);
 
   useEffect(() => {
     if (publicKey) {
       fetchBalance();
     }
-  }, [publicKey]);
+  }, [publicKey, fetchBalance]);
+
+  const handleRefresh = () => {
+    cache.invalidate(cacheKey);
+    fetchBalance(true);
+  };
 
   const formatBalance = (bal: string): string => {
     const num = parseFloat(bal);
@@ -50,13 +83,28 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
     });
   };
 
+  // Loading skeleton
   if (loading) {
     return (
       <Card className="animate-fadeIn">
         <div className="animate-pulse">
-          <div className="h-8 bg-white/5 rounded-lg mb-4 w-1/3"></div>
-          <div className="h-20 bg-white/5 rounded-xl mb-4"></div>
-          <div className="h-10 bg-white/5 rounded-lg w-1/2"></div>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-white/5 rounded-lg"></div>
+              <div className="h-7 bg-white/5 rounded-lg w-24"></div>
+            </div>
+            <div className="w-8 h-8 bg-white/5 rounded-lg"></div>
+          </div>
+          <div className="bg-white/5 rounded-2xl p-6 mb-5">
+            <div className="h-4 bg-white/5 rounded w-28 mb-3"></div>
+            <div className="h-12 bg-white/5 rounded-lg w-48 mb-2"></div>
+            <div className="h-4 bg-white/5 rounded w-20"></div>
+          </div>
+          <div className="grid grid-cols-2 gap-3 mb-5">
+            <div className="h-24 bg-white/5 rounded-xl"></div>
+            <div className="h-24 bg-white/5 rounded-xl"></div>
+          </div>
+          <div className="h-16 bg-white/5 rounded-xl"></div>
         </div>
       </Card>
     );
@@ -72,14 +120,27 @@ export default function BalanceDisplay({ publicKey }: BalanceDisplayProps) {
           <span className="text-3xl">🫙</span>
           Tip Jar
         </h2>
-        <button
-          onClick={fetchBalance}
-          disabled={refreshing}
-          className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
-          title="Refresh balance"
-        >
-          <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Cache indicator */}
+          <span
+            className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full border transition-all ${
+              isCached
+                ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
+                : 'bg-green-500/10 border-green-500/30 text-green-300'
+            }`}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${isCached ? 'bg-amber-400' : 'bg-green-400 animate-pulse'}`}></span>
+            {isCached ? 'cached' : 'live'}
+          </span>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-amber-400 hover:text-amber-300 disabled:opacity-50 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
+            title="Refresh balance (force)"
+          >
+            <FaSync className={`text-lg ${refreshing ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
       </div>
 
       {/* Main XLM Balance */}
