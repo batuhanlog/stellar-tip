@@ -88,7 +88,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-warm-gradient">
+    <div className="min-h-screen" style={{background: '#03030a'}}>
       {/* Top progress bar */}
       <TopProgressBar isActive={isProcessing} />
 
@@ -97,38 +97,40 @@ export default function Home() {
 
       {/* Ambient glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-violet-500/[0.07] rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/[0.05] rounded-full blur-[100px]"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full blur-[140px]" style={{background: 'rgba(106,0,255,0.12)'}}></div>
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] rounded-full blur-[120px]" style={{background: 'rgba(198,94,255,0.06)'}}></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px]" style={{background: 'rgba(106,0,255,0.06)'}}></div>
       </div>
 
       {/* Header */}
-      <header className="relative z-10 border-b border-white/[0.06] backdrop-blur-md bg-black/20">
+      <header className="relative z-10 backdrop-blur-md" style={{borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(3,3,10,0.8)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 bg-gradient-to-br from-violet-400 to-purple-500 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-violet-500/20">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl shadow-lg" style={{background: 'linear-gradient(135deg, #6a00ff, #c65eff)', boxShadow: '0 4px 20px rgba(198,94,255,0.3)'}}>
                 💰
               </div>
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  Stellar<span className="text-violet-400">Tip</span>
+                <h1 className="text-xl sm:text-2xl font-bold tracking-tight" style={{color: '#f5f5f5'}}>
+                  Stellar<span style={{color: '#c65eff'}}>Tip</span>
                 </h1>
-                <p className="text-white/40 text-xs hidden sm:block">Instant tips on Stellar blockchain</p>
+                <p className="text-xs hidden sm:block" style={{color: 'rgba(245,245,245,0.4)'}}>Instant tips on Stellar blockchain</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Green Belt Badge */}
-              <div className="hidden sm:flex items-center gap-1.5 bg-green-500/10 border border-green-500/30 rounded-full px-3 py-1">
-                <span className="text-sm">🥋</span>
-                <span className="text-green-400 text-xs font-bold">Green Belt</span>
+              {/* Blue Belt Badge */}
+              <div className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-1" style={{background: 'rgba(198,94,255,0.1)', border: '1px solid rgba(198,94,255,0.3)'}}>
+                <span className="text-sm">🔵</span>
+                <span className="text-xs font-bold" style={{color: '#c65eff'}}>Blue Belt</span>
               </div>
               <ThemeToggle />
               <a
                 href="https://stellar.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:block text-white/40 hover:text-white/70 text-sm transition-colors"
+                className="hidden sm:block text-sm transition-colors hover:opacity-80"
+                style={{color: 'rgba(245,245,245,0.4)'}}
               >
                 About Stellar
               </a>
@@ -136,7 +138,8 @@ export default function Home() {
                 href="https://github.com/batuhanlog/stellar-tip"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:block text-white/40 hover:text-white/70 text-sm transition-colors"
+                className="hidden sm:block text-sm transition-colors hover:opacity-80"
+                style={{color: 'rgba(245,245,245,0.4)'}}
               >
                 GitHub
               </a>
@@ -151,17 +154,17 @@ export default function Home() {
         {!isConnected && (
           <div className="mb-10 animate-fadeIn">
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-1.5 mb-6">
-                <span className="w-2 h-2 bg-violet-400 rounded-full animate-pulse"></span>
-                <span className="text-violet-300 text-sm font-medium">Live on Stellar Testnet</span>
+              <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6" style={{background: 'rgba(198,94,255,0.08)', border: '1px solid rgba(198,94,255,0.2)'}}>
+                <span className="w-2 h-2 rounded-full animate-pulse" style={{background: '#c65eff'}}></span>
+                <span className="text-sm font-medium" style={{color: 'rgba(198,94,255,0.9)'}}>Live on Stellar Testnet</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight leading-tight" style={{color: '#f5f5f5'}}>
                 Send Tips,<br />
-                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-violet-300 bg-clip-text text-transparent">
+                <span style={{background: 'linear-gradient(135deg, #6a00ff, #c65eff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'}}>
                   Instantly & Free
                 </span>
               </h2>
-              <p className="text-white/50 max-w-xl mx-auto text-lg leading-relaxed">
+              <p className="max-w-xl mx-auto text-lg leading-relaxed" style={{color: 'rgba(245,245,245,0.5)'}}>
                 A decentralized micropayment platform powered by Stellar.
                 Send tips in seconds with near-zero fees.
               </p>
@@ -297,21 +300,21 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/[0.06] mt-16">
+      <footer className="relative z-10 mt-16" style={{borderTop: '1px solid rgba(255,255,255,0.06)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="text-lg">💰</span>
-              <span className="text-white/40 text-sm font-medium">
-                Stellar<span className="text-violet-500/60">Tip</span>
+              <span className="text-sm font-medium" style={{color: 'rgba(245,245,245,0.4)'}}>
+                Stellar<span style={{color: 'rgba(198,94,255,0.6)'}}>Tip</span>
               </span>
-              <span className="text-white/20 text-xs ml-2">🥋 Green Belt</span>
+              <span className="text-xs ml-2" style={{color: 'rgba(245,245,245,0.2)'}}>🔵 Blue Belt</span>
             </div>
             <div className="text-center sm:text-right">
-              <p className="text-white/30 text-sm">
-                Built with ❤️ for the <span className="text-violet-400/50">Rise In Stellar Journey</span>
+              <p className="text-sm" style={{color: 'rgba(245,245,245,0.3)'}}>
+                Built with ❤️ for the <span style={{color: 'rgba(198,94,255,0.6)'}}>Rise In Stellar Journey</span>
               </p>
-              <p className="text-white/20 text-xs mt-1">
+              <p className="text-xs mt-1" style={{color: 'rgba(245,245,245,0.2)'}}>
                 ⚠️ Testnet only — do not use real funds
               </p>
             </div>
