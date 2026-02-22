@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#03030a] text-[#f5f5f5] min-h-screen bg-hero-gradient">{children}</body>
+      <body className="bg-[#0f0f13] text-[#f5f5f5] min-h-screen bg-hero-gradient">{children}</body>
     </html>
   );
 }

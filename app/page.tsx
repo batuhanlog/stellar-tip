@@ -88,7 +88,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen" style={{background: '#03030a'}}>
+    <div className="min-h-screen" style={{background: '#0f0f13'}}>
       {/* Top progress bar */}
       <TopProgressBar isActive={isProcessing} />
 
@@ -103,7 +103,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 backdrop-blur-md" style={{borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(3,3,10,0.8)'}}>
+      <header className="relative z-10 backdrop-blur-md" style={{borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(15,15,19,0.85)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
